@@ -3,10 +3,64 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Library"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="600" Width="800">
+
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         
+        <StackPanel Grid.Column="1" Grid.Row="1" Margin="30px">
+                <!-- Login Section -->
+            <Border Visibility="{Binding LoginVisibility}" Padding="10" Background="White" CornerRadius="20">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="5" Direction="330" BlurRadius="50" Color="#40000000"/>
+                </Border.Effect>
+
+                <StackPanel>
+                    <Label Content="Email"/>
+                    <TextBox Text="{Binding Email}"/>
+                    <Label x:Name="LogEmailError" Style="{StaticResource ErrorLabelStyle}"  Content="Error Message" Visibility="Collapsed"/>
+                    <Label Content="Password"/>
+                    <PasswordBox x:Name="LoginPassword"/>
+                    <Label x:Name="LogPasswordError" Style="{StaticResource ErrorLabelStyle}"  Content="Error Message" Visibility="Collapsed"/>
+                    <Button Content="Login" Command="{Binding LoginCommand}"/>
+                    <Button Content="Go to Register" Command="{Binding ShowRegisterCommand}"/>
+                </StackPanel>
+            </Border>
+
+            <Border Visibility="{Binding RegistrationVisibility}" Padding="10" Background="White" CornerRadius="20">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="5" Direction="330" BlurRadius="50" Color="#40000000"/>
+                </Border.Effect>
+                <!-- Registration Section -->
+                <StackPanel >
+                    <Label Content="Name"/>
+                    <TextBox Text="{Binding Name}"/>
+                    <Label x:Name="RegNameError" Style="{StaticResource ErrorLabelStyle}"  Content="Error Message" Visibility="Collapsed"/>
+                    <Label Content="Email"/>
+                    <TextBox Text="{Binding Email}"/>
+                    <Label x:Name="RegEmailError" Style="{StaticResource ErrorLabelStyle}"  Content="Error Message" Visibility="Collapsed"/>
+                    <Label Content="Password"/>
+                    <PasswordBox x:Name="RegisterPassword"/>
+                    <Label Content="Re-Password"/>
+                    <PasswordBox x:Name="SecondRegisterPassword"/>
+                    <Label x:Name="RegPasswordError" Style="{StaticResource ErrorLabelStyle}"  Content="Error Message" Visibility="Collapsed"/>
+                    <Button Content="Register" Command="{Binding RegisterCommand}"/>
+                    <Button Content="Go to Login" Command="{Binding ShowLoginCommand}"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
     </Grid>
+
 </Window>
+
