@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="Library.View.AddAbstractItemView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d">
+    <StackPanel>
+        <!-- Shared Properties -->
+        <Label Content="Title"/>
+        <TextBox Text="{Binding Title}" />
+
+        <Label Content="Publisher"/>
+        <TextBox Text="{Binding Publisher}" />
+
+        <Label Content="Publication Date"/>
+        <DatePicker x:Name="dpPublicationDate" SelectedDate="{Binding PublicationDate}" />
+
+        <Label Content="Quantity In Stock"/>
+        <TextBox Text="{Binding QuantityInStock}" />
+
+        <Label Content="Description"/>
+        <TextBox Text="{Binding Description}" />
+
+        <Label Content="Genres"/>
+        <ListBox ItemsSource="{Binding LbGenres}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox Content="{Binding Genre}" IsChecked="{Binding IsSelected}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Label Content="Price"/>
+        <TextBox Text="{Binding Price}" />
+    </StackPanel>
+</UserControl>

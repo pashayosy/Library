@@ -1,0 +1,26 @@
+﻿<Window x:Class="Library.Windows.AddWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:view="clr-namespace:Library.View" 
+        xmlns:viewmodel="clr-namespace:Library.ViewModel" 
+        d:DataContext="{d:DesignInstance Type=viewmodel:AddViewModel}"
+        mc:Ignorable="d"
+        Title="AddWindow" Height="600" Width="800">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="100 50 100 50">
+            <view:AddAbstractItemView x:Name="AbstractItemView"/>
+            
+            <view:AddBookView x:Name="BookView" Visibility="Collapsed"/>
+
+            <view:AddJournalView x:Name="JournalView" Visibility="Collapsed"/>
+
+            <Label x:Name="ItemAddError" Style="{StaticResource ErrorLabelStyle}"  Content="Error Message" Visibility="Collapsed"/>
+
+            <!-- Submit Button -->
+            <Button Content="Add Item" Margin="0,10" Command="{Binding AddItemCommand}"/>
+        </StackPanel>
+    </ScrollViewer>
+</Window>

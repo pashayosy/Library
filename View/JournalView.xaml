@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    >
+    <DataTemplate x:Key="JournalView">
+        <StackPanel>
+            <TextBlock Text="{Binding ISSN}"/>
+            <TextBlock Text="{Binding Volume}"/>
+            <TextBlock Text="{Binding Issue}"/>
+            <TextBlock Text="{Binding Editor}"/>
+            <!-- Other properties -->
+            <!-- TODO -->
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>
