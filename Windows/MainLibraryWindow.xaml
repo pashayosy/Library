@@ -7,10 +7,11 @@
         xmlns:view="clr-namespace:Library.View"
         d:DataContext="{d:DesignInstance Type=viewModel:LibraryViewModel}"
         mc:Ignorable="d"
-        Title="MainLibraryWindow" Height="600" Width="1200">
+        Title="MainLibraryWindow" Height="800" Width="1200">
     <Grid x:Name="Grid">
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -22,34 +23,60 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="0">
+        <StackPanel Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="0 0 0 10">
             <Label Content="Search"/>
-            <TextBox x:Name="tbSearch" TextChanged="tbSearch_TextChanged"/>
+            <TextBox x:Name="tbSearch"
+                     Text="{Binding TbSearch, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
-        <StackPanel x:Name="AdminOption" Visibility="Collapsed" Grid.Column="1" Grid.ColumnSpan="2">
-            <Button Content="Remove"/>
-            <Button Content="Add" Command="{Binding AddWindowOpenCommand}"/>
-            <Button Content="Update"/>
-        </StackPanel>
-
-        <StackPanel x:Name="UseroptionBuy" Grid.Column="1">
-            <Button Content="Buy" />
-            <Button Content="See bought items"/>
-        </StackPanel>
-
-        <StackPanel x:Name="UserOptionBorrow" Grid.Column="2">
-            <Button Content="Borrow"/>
-            <Button Content="See borrowed items"/>
-        </StackPanel>
-
-
-
-        <StackPanel Grid.Column="3">
+        <StackPanel Grid.Column="0"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    Margin="0 0 0 10">
             <Label Content="Genre"/>
-            <ComboBox ItemsSource="{Binding AllGenre}" SelectionChanged="ComboBox_SelectionChanged"/>
+            <ComboBox ItemsSource="{Binding AllGenre}"
+              Text="{Binding CbGenre, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
-        <view:DataView x:Name="DataView" Grid.Row="1" Grid.ColumnSpan="4"/>
+        <DockPanel x:Name="AdminOption"
+                    Visibility="Collapsed"
+                    Grid.Column="2"
+                    Grid.ColumnSpan="2"
+                    Grid.RowSpan="2">
+            <Button Content="Remove" 
+                    DockPanel.Dock="Bottom"
+                    Command="{Binding RemoveItemCommand}"/>
+            <Button Content="Add" 
+                    DockPanel.Dock="Top"
+                    Command="{Binding AddWindowOpenCommand}"/>
+            <Button Content="Update"
+                    Command="{Binding UpdateItemCommand}"/>
+        </DockPanel>
+        <Button x:Name="UserOptionBuy"
+                Content="See bought items"
+                Grid.Column="2"
+                Grid.Row="0"
+                Command="{Binding ShowBoughtItemCommand}"
+                CommandParameter="BuyFolder"
+                />
+        <Button x:Name="UserOptionShow"
+                Content="Show items list"
+                Grid.Column="2"
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                Command="{Binding ShowItemCommand}"
+                CommandParameter="Items"
+                />
+
+        <Button x:Name="UserOptionBorrow"
+                Content="See borrowed"
+                Grid.Column="3"
+                Grid.Row="0"
+                Command="{Binding ShowBorrowedItemCommand}"
+                CommandParameter="BorrowFolder"
+                />
+        <view:DataView x:Name="DataView" Grid.Row="2" Grid.ColumnSpan="4"/>
     </Grid>
 </Window>

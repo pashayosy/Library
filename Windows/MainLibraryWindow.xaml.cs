@@ -1,12 +1,7 @@
-﻿using Enums.LibraryClasses;
-using Library.ViewModel;
-using System.Globalization;
+﻿using Library.ViewModel;
 using System;
 using System.Windows;
-using System.Windows.Controls;
 using LibraryClasses.enums;
-using Library.View;
-using System.Data;
 using DataView = Library.View.DataView;
 
 namespace Library.Windows
@@ -19,57 +14,31 @@ namespace Library.Windows
         public MainLibraryWindow(UserType userType, Guid id)
         {
             InitializeComponent();
+            DataContext = new LibraryViewModel(id, DataView.quantityColomn);
 
             if (userType == UserType.Regular)
                 ShowRegular();
 
             if (userType == UserType.Admin)
                 ShowAdmin();
-
-            DataContext = new LibraryViewModel();
         }
 
         private void ShowRegular()
         {
             AdminOption.Visibility = Visibility.Collapsed;
-            UseroptionBuy.Visibility = Visibility.Visible;
+            UserOptionBuy.Visibility = Visibility.Visible;
             UserOptionBorrow.Visibility = Visibility.Visible;
-            DataView dataView = DataView;
-            dataView.dgItems.IsReadOnly = true;
+            UserOptionShow.Visibility = Visibility.Visible;
+            DataView.IdColomn.Visibility = Visibility.Collapsed;
         }
 
         private void ShowAdmin()
         {
             AdminOption.Visibility = Visibility.Visible;
-            UseroptionBuy.Visibility = Visibility.Collapsed;
+            UserOptionBuy.Visibility = Visibility.Collapsed;
             UserOptionBorrow.Visibility = Visibility.Collapsed;
-            DataView dataView = DataView;
-            dataView.dgItems.IsReadOnly = false;
-        }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // Using the sender parameter
-            if (sender is ComboBox comboBox)
-            {
-                var selectedItem = comboBox.SelectedItem;
-                if (DataContext is LibraryViewModel viewModel)
-                {
-                    viewModel.GenreSelecter(selectedItem.ToString());
-                }
-            }
-            
-        }
-
-        private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if(sender is TextBox textBox) 
-            {
-                if (DataContext is LibraryViewModel viewModel)
-                {
-                    viewModel.Search(textBox.Text);
-                }
-            }
+            UserOptionShow.Visibility = Visibility.Collapsed;
+            DataView.ActionColomn.Visibility = Visibility.Collapsed;
         }
     }
 }

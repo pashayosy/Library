@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:viewModel="clr-namespace:Library.ViewModel"
+             xmlns:viewModel="clr-namespace:Library.ViewModel" d:DataContext="{d:DesignInstance Type=viewModel:LibraryViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800">
     <Grid>
@@ -24,7 +24,9 @@
                   CanUserReorderColumns="False"
                   HorizontalScrollBarVisibility="Auto" 
                   VerticalScrollBarVisibility="Auto"
-                  AutoGenerateColumns="False">
+                  AutoGenerateColumns="False"
+                  SelectedItem="{Binding UserSelectedItem}"
+                  >
             <DataGrid.Resources>
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
@@ -38,10 +40,22 @@
                 </ResourceDictionary>
             </DataGrid.Resources>
             <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Actions" x:Name="ActionColomn">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                <Button Visibility="{Binding DataContext.BuyButtonVisibility, RelativeSource={RelativeSource AncestorType=DataGrid}}"  Content="Buy" Command="{Binding DataContext.BuyCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}"/>
+                                <Button Visibility="{Binding DataContext.BorrowButtonVisibility, RelativeSource={RelativeSource AncestorType=DataGrid}}"  Content="Borrow" Command="{Binding DataContext.BorrowCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}"/>
+                                <Button Visibility="{Binding DataContext.ReturnButtonVisibility, RelativeSource={RelativeSource AncestorType=DataGrid}}"  Content="Return" Command="{Binding DataContext.ReturnCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn x:Name="IdColomn" Binding="{Binding Id}" Header="Id"/>
                 <DataGridTextColumn Binding="{Binding Title}" Header="Title"/>
                 <DataGridTextColumn Binding="{Binding Publisher}" Header="Publisher"/>
                 <DataGridTextColumn Binding="{Binding PublicationDate}" Header="Publication Date"/>
-                <DataGridTextColumn Binding="{Binding QuantityInStock}" Header="Quantity In Stock"/>
+                <DataGridTextColumn x:Name="quantityColomn" Binding="{Binding QuantityInStock}" Header="Quantity In Stock"/>
                 <DataGridTextColumn Binding="{Binding Description}" Header="Description"/>
                 <DataGridTextColumn Binding="{Binding Price}" Header="Price"/>
                 <DataGridTextColumn Binding="{Binding Genres}" Header="Genres"/>

@@ -2,13 +2,30 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     >
     <DataTemplate x:Key="JournalView">
-        <StackPanel>
-            <TextBlock Text="{Binding ISSN}"/>
-            <TextBlock Text="{Binding Volume}"/>
-            <TextBlock Text="{Binding Issue}"/>
-            <TextBlock Text="{Binding Editor}"/>
-            <!-- Other properties -->
-            <!-- TODO -->
-        </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Column="0">
+                <TextBlock Text="ISSN: " Grid.Row="0"/>
+                <TextBlock Text="Volume: " Grid.Row="1"/>
+                <TextBlock Text="Issue: " Grid.Row="2"/>
+                <TextBlock Text="Editor: " Grid.Row="3"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1">
+                <TextBlock Text="{Binding ISSN}" Grid.Row="0"/>
+                <TextBlock Text="{Binding Volume}" Grid.Row="1"/>
+                <TextBlock Text="{Binding Issue}" Grid.Row="2"/>
+                <TextBlock Text="{Binding Editor}" Grid.Row="3"/>
+            </StackPanel>
+        </Grid>
     </DataTemplate>
 </ResourceDictionary>

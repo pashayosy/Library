@@ -1,34 +1,39 @@
-﻿using Library.View;
-using Library.ViewModel;
+﻿using Library.ViewModel;
 using LibraryClasses.enums;
 using LibraryClasses.Models;
-using MahApps.Metro.Controls.Dialogs;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace Library.Windows
 {
     /// <summary>
-    /// Interaction logic for AddWindow.xaml
+    /// Interaction logic for UpdateWindow.xaml
     /// </summary>
-    public partial class AddWindow : Window
+    public partial class UpdateWindow : Window
     {
-        public AddWindow()
+        public UpdateWindow(AbstractItem item)
         {
             InitializeComponent();
-            var dialog = new CustomDialog(Enum.GetNames(typeof(AbstractItemType)));
-
-            bool? dialogResult = dialog.ShowDialog();
-            if (dialogResult == true)
+            if (item != null)
             {
-                var value = dialog.SelectedOption;
-                switch (value)
+                switch (item)
                 {
-                    case "Book":
+                    case Book _:
                         BookView.Visibility = Visibility.Visible;
                         windowTitleLable.Content = "Add Book";
                         break;
-                    case "Journal":
+                    case Journal _:
                         JournalView.Visibility = Visibility.Visible;
                         windowTitleLable.Content = "Add Journal";
                         break;
@@ -37,7 +42,7 @@ namespace Library.Windows
                         break;
                 }
 
-                DataContext = new ItemUpdateAndAddViewModel((AbstractItemType)Enum.Parse(typeof(AbstractItemType), value), ItemAddError, this);
+                DataContext = new ItemUpdateAndAddViewModel(ItemUpdateError, this, item);
                 AbstractItemView.dpPublicationDate.DisplayDateEnd = DateTime.Now;
                 AbstractItemView.dpPublicationDate.DisplayDateStart = DateTime.Now.AddYears(-100);
                 AbstractItemView.dpPublicationDate.SelectedDate = DateTime.Now;
