@@ -15,6 +15,11 @@ using System.Windows.Input;
 
 namespace Library.ViewModel
 {
+    /// <summary>
+    /// ViewModel responsible for controlling the login and registration flow within the application.
+    /// It handles user interactions for logging in and registering, toggling between the login and
+    /// registration views, and executing login and registration logic.
+    /// </summary>
     public class MainViewModel : INotifyPropertyChanged
     {
         private Visibility _loginVisibility = Visibility.Visible;
@@ -55,6 +60,11 @@ namespace Library.ViewModel
         public ICommand ShowLoginCommand { get; set; }
         public ICommand ShowRegisterCommand { get; set; }
 
+
+        /// <summary>
+        /// Constructor that initializes commands and sets the initial view to the login screen.
+        /// </summary>
+        /// <param name="window">Reference to the main window for navigation purposes.</param>
         public MainViewModel(MainWindow window)
         {
             ShowLoginCommand = new RelayCommand(() => ShowLogin());
@@ -62,18 +72,32 @@ namespace Library.ViewModel
             _window = window;
         }
 
+
+        /// <summary>
+        /// Switches the view to the login screen.
+        /// </summary>
         private void ShowLogin()
         {
             LoginVisibility = Visibility.Visible;
             RegistrationVisibility = Visibility.Collapsed;
         }
 
+
+        /// <summary>
+        /// Switches the view to the registration screen.
+        /// </summary>
         private void ShowRegister()
         {
             LoginVisibility = Visibility.Collapsed;
             RegistrationVisibility = Visibility.Visible;
         }
 
+
+        /// <summary>
+        /// Executes the login action, including validation against stored user credentials.
+        /// </summary>
+        /// <param name="password">The password input control from the UI.</param>
+        /// <param name="errorLabel">Label for displaying error messages.</param>
         public void LoginAction(PasswordBox password, Label errorLable)
         {
             UserType userType = UserType.None;
@@ -102,6 +126,13 @@ namespace Library.ViewModel
             }
         }
 
+
+        /// <summary>
+        /// Executes the registration action, including validation of input and creation of a new user record.
+        /// </summary>
+        /// <param name="password">The password input control from the UI.</param>
+        /// <param name="rePassword">The repeated password input control from the UI for confirmation.</param>
+        /// <param name="errorLabel">Label for displaying error messages.</param>
         public void RegisterAction(PasswordBox password, PasswordBox rePassword, Label errorLabel)
         {
             if (password.Password.Equals(rePassword.Password))
@@ -132,6 +163,12 @@ namespace Library.ViewModel
 
         }
 
+
+        /// <summary>
+        /// Displays an error message asynchronously, hiding it after a delay.
+        /// </summary>
+        /// <param name="message">The error message to display.</param>
+        /// <param name="errorLabel">Label for displaying the error message.</param>
         public static async Task ShowErrorMessageAsync(string message, Label errorLabel)
         {
             errorLabel.Content = message; // Use the passed message instead of a fixed string

@@ -18,6 +18,13 @@ using System.Windows.Input;
 
 namespace Library.ViewModel
 {
+    /// <summary>
+    /// The LibraryViewModel is designed to manage the library's inventory, including adding, removing, updating,
+    /// buying, and borrowing items. It supports interaction with the user interface for managing library items,
+    /// such as books and journals, by utilizing commands bound to UI actions. This ViewModel also handles filtering
+    /// items based on search criteria and selected genres, providing dynamic updates to the UI through property
+    /// notifications.
+    /// </summary>
     public class LibraryViewModel : INotifyPropertyChanged
     {
         private IEnumerable<Genres> _allGenre;
@@ -128,6 +135,11 @@ namespace Library.ViewModel
         private readonly string BoughtPath;
         private readonly string BorrowPath;
 
+        /// <summary>
+        /// Constructor for initializing commands and setting up the ViewModel.
+        /// </summary>
+        /// <param name="id">The user's identifier for customizing user-specific actions, like showing borrowed items.</param>
+        /// <param name="quantityColumn">A reference to the DataGrid's quantity column for visibility control.</param>
         public LibraryViewModel(Guid id, DataGridTextColumn quantityColomn)
         {
             AddWindowOpenCommand = new RelayCommand(() => OpenAddWindow());
@@ -150,6 +162,10 @@ namespace Library.ViewModel
             AllGenre = Enum.GetValues(typeof(Genres)).Cast<Genres>();
         }
 
+
+        /// <summary>
+        /// Handles the logic for removing a selected item from the library, including confirmation and error handling.
+        /// </summary>
         private void ReturnItem(AbstractItem item)
         {
             if (DataManager.DeleteData(item.Id, BorrowPath)) 
@@ -246,6 +262,10 @@ namespace Library.ViewModel
             LoadItems();
         }
 
+
+        /// <summary>
+        /// Updates the details of the selected item in the library, refreshing the item list upon updating.
+        /// </summary>
         private async void UpdateItem()
         {
             if (_userSelectedItem != null)
@@ -269,6 +289,10 @@ namespace Library.ViewModel
             }
         }
 
+
+        /// <summary>
+        /// Opens the window for adding new items to the library, refreshing the item list upon closing the window.
+        /// </summary>
         private async void OpenAddWindow()
         {
             AddWindow window = new AddWindow();
@@ -288,6 +312,11 @@ namespace Library.ViewModel
             OnPropertyChanged(nameof(Items));
         }
 
+
+        /// <summary>
+        /// Filters the displayed items based on the selected genre.
+        /// </summary>
+        /// <param name="genre">The genre used for filtering items.</param>
         public void GenreSelecter(string genre)
         {
             _savedGenre = genre;
@@ -302,6 +331,11 @@ namespace Library.ViewModel
             OnPropertyChanged(nameof(Items));
         }
 
+
+        /// <summary>
+        /// Filters the displayed items based on the entered search keyword.
+        /// </summary>
+        /// <param name="keyWord">The search keyword used for filtering items.</param>
         public void Search(string keyWord)
         {
             _savedKeyWord = keyWord;

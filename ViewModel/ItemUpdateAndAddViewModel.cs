@@ -14,6 +14,11 @@ using System.Windows.Input;
 
 namespace Library.ViewModel
 {
+    /// <summary>
+    /// ViewModel supporting the addition and updating of library items such as books and journals.
+    /// It provides properties for editing item details, commands for saving changes, and manages the selection of genres.
+    /// Implements INotifyPropertyChanged for data binding with UI elements.
+    /// </summary>
     public class ItemUpdateAndAddViewModel : INotifyPropertyChanged
     {
         // Abstract item
@@ -130,6 +135,13 @@ namespace Library.ViewModel
         private Label errorLabel;
         private Window _window;
 
+
+        /// <summary>
+        /// Initializes a new instance for adding a new item, setting up commands and initializing genre selections.
+        /// </summary>
+        /// <param name="type">The type of the item to add (Book or Journal).</param>
+        /// <param name="errorLabel">Label to display error messages.</param>
+        /// <param name="window">The window instance for closing upon completion.</param>
         public ItemUpdateAndAddViewModel(AbstractItemType type, Label errorLabel, Window window)
         {
             AddItemCommand = new RelayCommand(() => AddItem());
@@ -141,6 +153,13 @@ namespace Library.ViewModel
             GenreInit();
         }
 
+
+        /// <summary>
+        /// Initializes a new instance for updating an existing item, loading its details into the properties.
+        /// </summary>
+        /// <param name="errorLabel">Label to display error messages.</param>
+        /// <param name="window">The window instance for closing upon completion.</param>
+        /// <param name="toUpdate">The item to update.</param>
         public ItemUpdateAndAddViewModel(Label errorLabel, Window window, AbstractItem toUpdate)
         {
             AddItemCommand = new RelayCommand(() => AddItem());
@@ -284,6 +303,10 @@ namespace Library.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// Raises the PropertyChanged event for the specified property name.
+        /// </summary>
+        /// <param name="propertyName">The name of the property that changed.</param>
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
